@@ -15,5 +15,5 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function() {
     Route::any('/', ['uses' => 'HomeController@index', 'name' => 'home']);
+    Route::get('/profile', ['uses' => 'UserController@index'])->name('profile');
 });
-

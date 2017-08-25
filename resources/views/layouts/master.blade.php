@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="https://bootswatch.com/paper/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -51,7 +53,11 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
+
                             <ul class="dropdown-menu" role="menu">
+                                <li>
+                                  <a href="{{ route('profile') }}">Profile</a>
+                                </li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -77,5 +83,10 @@
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="{{ asset('js/app.js')}}"></script>
+
+<!-- Angular Resources -->
+<script src="{{ asset('js/angular/modules/profile.js') }}"></script>
+<script src="{{ asset('js/angular/controllers/profileController.js') }}"></script>
 </body>
 </html>
