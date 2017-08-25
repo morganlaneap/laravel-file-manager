@@ -14,6 +14,7 @@
 Auth::routes();
 
 Route::middleware(['auth'])->group(function() {
-    Route::any('/', ['uses' => 'HomeController@index', 'name' => 'home']);
+    Route::any('/', ['uses' => 'HomeController@index'])->name('home');
+    Route::post('/upload', ['uses' => 'FileController@uploadFile'])->name('file.upload');
 });
 

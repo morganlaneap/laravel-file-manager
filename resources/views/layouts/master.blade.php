@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="https://bootswatch.com/paper/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
 </head>
 <body>
 <div id="app">
@@ -77,5 +79,8 @@
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="{{ asset('js/dropzone.js') }}"></script>
+
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
