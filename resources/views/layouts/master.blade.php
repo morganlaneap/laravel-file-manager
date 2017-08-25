@@ -11,11 +11,16 @@
     <title>LaravelFileManager</title>
 
     <!-- Styles -->
-    <link href="https://bootswatch.com/paper/bootstrap.min.css" rel="stylesheet">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
+    <link href="https://bootswatch.com/paper/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+    <!-- Angular Resources -->
+    <script src="{{ asset('js/angular/modules/angular-file-upload.min.js')}}"></script>
+    <script src="{{ asset('js/angular/modules/uploadFile.js') }}"></script>
+    <script src="{{ asset('js/angular/controllers/uploadFileController.js') }}"></script>
 </head>
 <body>
 <div id="app">
@@ -83,12 +88,8 @@
 </div>
 
 <!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="{{ asset('js/dropzone.js') }}"></script>
-<!-- Angular Resources -->
-<script src="{{ asset('js/angular/modules/profile.js') }}"></script>
-<script src="{{ asset('js/angular/controllers/profileController.js') }}"></script>
+<script src="{{ asset('js/toastr.min.js')}}"></script>
 <script src="{{ asset('js/app.js')}}"></script>
 </body>
 </html>
