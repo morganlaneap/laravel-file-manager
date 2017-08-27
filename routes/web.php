@@ -17,4 +17,5 @@ Route::middleware(['auth'])->group(function() {
     Route::any('/', ['uses' => 'HomeController@index'])->name('home');
     Route::post('/upload', ['uses' => 'FileController@uploadFile'])->name('file.upload');
     Route::get('/profile', ['uses' => 'UserController@index'])->name('profile');
+    Route::post('/explorer/files', ['uses' => 'FileController@getUserFiles'])->name('explorer.files');
 });

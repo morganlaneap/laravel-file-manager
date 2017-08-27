@@ -18,9 +18,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
     <!-- Angular Resources -->
-    <script src="{{ asset('js/angular/modules/angular-file-upload.min.js')}}"></script>
-    <script src="{{ asset('js/angular/modules/uploadFile.js') }}"></script>
-    <script src="{{ asset('js/angular/controllers/uploadFileController.js') }}"></script>
+    <script src="{{ asset('js/angular/angular-file-upload.min.js')}}"></script>
+    <script src="{{ asset('js/angular/fileManager.js') }}"></script>
 </head>
 <body>
 <div id="app">

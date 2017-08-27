@@ -33,4 +33,10 @@ class FileController extends Controller
             return response()->json(['msg' => 'No file was specified.', 'status' => '500'], 500);
         }
     }
+
+    public function getUserFiles(Request $request) {
+        $files = File::where('user_id', Auth::id())->orderBy('file_name', 'asc')->get();
+
+        return $files->toJson();
+    }
 }
