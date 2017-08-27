@@ -1,8 +1,9 @@
-<div ng-controller="explorerController" ng-init="getFiles()" >
+<div ng-controller="explorerController" ng-init="folder=0; getFiles()" >
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <span id="explorer-url" class="hidden">{{route('explorer.files')}}</span>
+                <span id="explorer-folder-url" class="hidden">{{route('explorer.folders')}}</span>
                 <span id="explorer-delete-url" class="hidden">{{route('explorer.delete')}}</span>
 
                 <table class="table table-hover table-responsive">
@@ -12,6 +13,18 @@
                         <th>Date Modified</th>
                         <th>Actions</th>
                     </thead>
+                    <tr ng-hide="folder==0" ng-click="folder=0; getFiles()">
+                        <td>
+                            <i class="fa fa-level-up fa-2x"></i>&nbsp;&nbsp;
+                        </td>
+                        <td></td><td></td><td></td>
+                    </tr>
+                    <tr class="clickable-row" ng-repeat="f in folders" ng-click="$parent.folder=f.id; getFiles()">
+                        <td><i class="fa fa-folder fa-2x"></i>&nbsp;&nbsp;@{{ f.folder_name }}</td>
+                        <td></td>
+                        <td>@{{ f.updated_at }}</td>
+                        <td></td>
+                    </tr>
                     <tr ng-repeat="file in files">
                         <td>@{{ file.file_name }}</td>
                         <td>@{{ file.file_size/1024/1024|number:2 }} MB</td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\File;
+use App\Folder;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,7 +37,14 @@ class FileController extends Controller
     }
 
     public function getUserFiles(Request $request) {
-        $files = File::where('user_id', Auth::id())->orderBy('file_name', 'asc')->get();
+        $folder = $request->input('folder');
+
+        // un-foldered files
+        if ($folder == 0) {
+            $files = File::doesntHave('folder')->where('user_id', Auth::id())->get();
+        } else {
+            $files = File::has('folder')->where('folder_id', $folder)->get();
+        }
 
         return $files->toJson();
     }

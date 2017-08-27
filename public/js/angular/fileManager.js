@@ -34,7 +34,10 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
     });
 
     $scope.getFiles = function() {
+        console.log($scope.folder);
+
         var url = $('#explorer-url').html();
+        var folder_url = $('#explorer-folder-url').html();
 
         var data = {
             folder: $scope.folder,
@@ -47,6 +50,14 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
             data: data
         }).then(function(response) {
             $scope.files = response.data;
+        });
+
+        $http({
+            method: 'POST',
+            url: folder_url,
+            data: data
+        }).then(function(response) {
+            $scope.folders = response.data;
         });
     };
 

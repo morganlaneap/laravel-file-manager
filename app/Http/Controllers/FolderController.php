@@ -20,4 +20,17 @@ class FolderController extends Controller
 
         return response()->json(['msg' => 'Folder created.', 'status' => '200'], 200);
     }
+
+    public function getUserFolders(Request $request) {
+        $folder = $request->input('folder');
+
+        if ($folder == 0) {
+            // get the parent folders
+            $folders = Folder::doesntHave('childFolders')->where('user_id', Auth::id())->get();
+        } else {
+            $folders = Folder::has('childFolders')->where('parent_folder', $folder)->get();
+        }
+
+        return $folders->toJson();
+    }
 }
