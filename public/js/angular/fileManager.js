@@ -51,7 +51,13 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
         url = url + "/" + id;
 
         $http.get(url).then(function (response) {
-            notify(response.data, 1);
+            if (response.status == "200") {
+                notify(response.msg, 1);
+            } else
+            {
+                notify(response.msg, 3);
+            }
+
             $scope.getFiles();
         });
     };

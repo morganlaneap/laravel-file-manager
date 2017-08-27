@@ -55,9 +55,9 @@ class FileController extends Controller
 
             $file->forceDelete();
 
-            return response()->json(['msg' => 'File deleted.'], 200);
+            return response()->json(['msg' => 'File deleted.', 'status' => '200'], 200);
         } catch (\Exception $ex) {
-            return response()->json(['msg' => $ex->getMessage()], 500);
+            return response()->json(['msg' => $ex->getMessage(), 'status' => '500'], 500);
         }
     }
 }
