@@ -28,7 +28,7 @@ fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$r
 
 }]);
 
-fileManagerApp.controller('explorerController', function ($scope, $http, $rootScope) {
+fileManagerApp.controller('explorerController', function ($scope, $http, $rootScope, $httpParamSerializer) {
     $rootScope.$on('getFiles', function() {
         $scope.getFiles();
     });
@@ -36,11 +36,16 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
     $scope.getFiles = function() {
         var url = $('#explorer-url').html();
 
-        var data = $.param({
-            folder: $scope.folder
-        });
+        var data = {
+            folder: $scope.folder,
+            '_token' : $('meta[name=csrf-token]').attr("content")
+        };
 
-        $http.post(url, data).then(function (response) {
+        $http({
+            method: 'POST',
+            url: url,
+            data: data
+        }).then(function(response) {
             $scope.files = response.data;
         });
     };
@@ -65,12 +70,17 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
     $scope.createFolder = function(folder) {
         var url = $('#folder-create-url').html();
 
-        var data = $.param({
+        var data = {
             name: $scope.folder_name,
-            description: $scope.folder_desc
-        });
+            description: $scope.folder_desc,
+            '_token' : $('meta[name=csrf-token]').attr("content")
+        };
 
-        $http.post(url, data).then(function (response) {
+        $http({
+            method: 'POST',
+            url: url,
+            data: data
+        }).then(function(response) {
             notify(response.data, 1);
             $('#folder-create-modal').modal('hide');
         });

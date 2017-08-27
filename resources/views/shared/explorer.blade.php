@@ -7,7 +7,7 @@
 
                 <table class="table table-hover table-responsive">
                     <thead>
-                        <th>File Name</th>
+                        <th>Name</th>
                         <th>Size</th>
                         <th>Date Modified</th>
                         <th>Actions</th>
