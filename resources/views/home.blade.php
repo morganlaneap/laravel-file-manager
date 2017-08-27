@@ -29,8 +29,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <a class="btn btn-default text-capitalize" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-upload"></i>&nbsp;&nbsp;Upload New File(s)</a>
-                    <a class="btn btn-default text-capitalize"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Folder</a>
+                    <a class="btn btn-default text-capitalize" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-upload"></i>&nbsp;&nbsp;Upload Files</a>
+                    <a class="btn btn-default text-capitalize" data-toggle="modal" data-target="#folder-create-modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Folder</a>
                 </div>
             </div>
         </div>
