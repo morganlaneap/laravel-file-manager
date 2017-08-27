@@ -31,7 +31,7 @@ fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$r
 fileManagerApp.controller('explorerController', function ($scope, $http, $rootScope) {
     $rootScope.$on('getFiles', function() {
         $scope.getFiles();
-    })
+    });
 
     $scope.getFiles = function() {
         var url = $('#explorer-url').html();
@@ -43,5 +43,16 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
         $http.post(url, data).then(function (response) {
             $scope.files = response.data;
         });
-    }
+    };
+
+    $scope.deleteFile = function(id) {
+        var url = $('#explorer-delete-url').html();
+
+        url = url + "/" + id;
+
+        $http.get(url).then(function (response) {
+            notify(response.data, 1);
+            $scope.getFiles();
+        });
+    };
 });

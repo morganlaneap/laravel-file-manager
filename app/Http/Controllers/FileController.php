@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\File;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -44,5 +45,19 @@ class FileController extends Controller
         $file = File::where('id', $id)->first();
 
         return response()->download(storage_path("app/uploads/") . $file->file_hash, $file->file_name);
+    }
+
+    public function deleteFile($id) {
+        try {
+            $file = File::where('id', $id)->first();
+
+            Storage::delete("uploads/" . $file->file_hash);
+
+            $file->forceDelete();
+
+            return response()->json(['msg' => 'File deleted.'], 200);
+        } catch (\Exception $ex) {
+            return response()->json(['msg' => $ex->getMessage()], 500);
+        }
     }
 }

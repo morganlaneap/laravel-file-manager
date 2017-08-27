@@ -19,4 +19,5 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/profile', ['uses' => 'UserController@index'])->name('profile');
     Route::post('/explorer/files', ['uses' => 'FileController@getUserFiles'])->name('explorer.files');
     Route::get('/explorer/files/download/{id?}', ['uses' => 'FileController@downloadFile'])->name('explorer.download');
+    Route::get('/explorer/files/delete/{id?}', ['uses' => 'FileController@deleteFile'])->name('explorer.delete');
 });
