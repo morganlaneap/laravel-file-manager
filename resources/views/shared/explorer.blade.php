@@ -26,3 +26,32 @@
         </div>
     </div>
 </div>
+
+<!-- add folder modal -->
+<div ng-controller="explorerController" class="modal fade" id="folder-create-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create folder...</h4>
+            </div>
+                <div class="modal-body">
+                    <span id="folder-create-url" class="hidden">{{route('folder.create')}}</span>
+                    <div class="form-group">
+                        <label><b>Folder Name:</b></label>
+                        <input type="text" ng-model="folder_name" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label><b>Folder Description:</b></label>
+                        <input type="text" ng-model="folder_desc" class="form-control" />
+                    </div>
+
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;&nbsp;Cancel</button>
+                <button type="button" class="btn btn-success" ng-click="createFolder()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Folder</button>
+            </div>
+        </div>
+    </div>
+</div>

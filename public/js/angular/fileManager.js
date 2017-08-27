@@ -61,4 +61,18 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
             $scope.getFiles();
         });
     };
+
+    $scope.createFolder = function(folder) {
+        var url = $('#folder-create-url').html();
+
+        var data = $.param({
+            name: $scope.folder_name,
+            description: $scope.folder_desc
+        });
+
+        $http.post(url, data).then(function (response) {
+            notify(response.data, 1);
+            $('#folder-create-modal').modal('hide');
+        });
+    }
 });
