@@ -84,6 +84,16 @@
     </nav>
 
     @yield('content')
+
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <span>LaravelFileManager by Morgan Lane | <a target="_blank" href="https://github.com/morganlaneap/laravel-file-manager">GitHub</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Scripts -->
