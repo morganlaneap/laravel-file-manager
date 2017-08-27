@@ -39,4 +39,10 @@ class FileController extends Controller
 
         return $files->toJson();
     }
+
+    public function downloadFile($id) {
+        $file = File::where('id', $id)->first();
+
+        return response()->download(storage_path("app/uploads/") . $file->file_hash, $file->file_name);
+    }
 }

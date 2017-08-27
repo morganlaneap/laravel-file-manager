@@ -7,11 +7,17 @@
                 <table class="table table-hover table-responsive">
                     <thead>
                         <th>File Name</th>
-                        <th>Date Modified</th></thg>
+                        <th>Size</th>
+                        <th>Date Modified</th>
+                        <th>Actions</th>
                     </thead>
                     <tr ng-repeat="file in files">
                         <td>@{{ file.file_name }}</td>
+                        <td>@{{ file.file_size/1024/1024|number:2 }} MB</td>
                         <td>@{{ file.updated_at }}</td>
+                        <td>
+                            <a href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
+                        </td>
                     </tr>
                 </table>
             </div>
