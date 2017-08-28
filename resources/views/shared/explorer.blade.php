@@ -1,11 +1,7 @@
-<div ng-controller="explorerController" ng-init="folder=0; parentfolder=0; getFiles()" >
+<div ng-controller="explorerController" ng-init="folder=0; getFiles()" >
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <span id="explorer-url" class="hidden">{{route('explorer.files')}}</span>
-                <span id="explorer-folder-url" class="hidden">{{route('explorer.folders')}}</span>
-                <span id="explorer-delete-url" class="hidden">{{route('explorer.delete')}}</span>
-                <span id="current-folder" ng-bind="folder"></span>
                 <table class="table table-hover table-responsive">
                     <thead>
                         <th>Name</th>
@@ -13,13 +9,13 @@
                         <th>Date Modified</th>
                         <th>Actions</th>
                     </thead>
-                    <tr class="clickable-row" ng-hide="folder==0" ng-click="folder=parentfolder; getFiles()">
+                    <tr class="clickable-row" ng-hide="folder==0" ng-click="getParentFolderId()">
                         <td>
                             <i class="fa fa-level-up fa-2x"></i>&nbsp;&nbsp;
                         </td>
                         <td></td><td></td><td></td>
                     </tr>
-                    <tr class="clickable-row" ng-repeat="f in folders" ng-click="$parent.parentfolder=$parent.folder;$parent.folder=f.id; getFiles()">
+                    <tr class="clickable-row" ng-repeat="f in folders" ng-click="$parent.folder=f.id; getFiles()">
                         <td><i class="fa fa-folder fa-2x"></i>&nbsp;&nbsp;@{{ f.folder_name }}</td>
                         <td></td>
                         <td>@{{ f.updated_at }}</td>
@@ -49,7 +45,6 @@
                 <h4 class="modal-title">Create folder...</h4>
             </div>
                 <div class="modal-body">
-                    <span id="folder-create-url" class="hidden">{{route('folder.create')}}</span>
                     <div class="form-group">
                         <label><b>Folder Name:</b></label>
                         <input type="text" ng-model="folder_name" class="form-control" />

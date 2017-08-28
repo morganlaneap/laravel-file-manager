@@ -1,9 +1,7 @@
 var fileManagerApp = angular.module('fileManager', ['angularFileUpload']);
 fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$rootScope', function($scope, FileUploader, $rootScope) {
-
-
     var uploader = $scope.uploader = new FileUploader({
-        url: $('#upload-url').html(),
+        url: upload_url,
         formData: [{
                     '_token' : $('meta[name=csrf-token]').attr("content"),
                     'folder' : $('#current-folder').html()
@@ -44,9 +42,6 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
 
         var folder = $scope.folder;
 
-        var url = $('#explorer-url').html();
-        var folder_url = $('#explorer-folder-url').html();
-
         var data = {
             folder: folder,
             '_token' : $('meta[name=csrf-token]').attr("content")
@@ -54,7 +49,7 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
 
         $http({
             method: 'POST',
-            url: url,
+            url: explorer_files_url,
             data: data
         }).then(function(response) {
             $scope.files = response.data;
@@ -62,15 +57,34 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
 
         $http({
             method: 'POST',
-            url: folder_url,
+            url: explorer_folders_url,
             data: data
         }).then(function(response) {
             $scope.folders = response.data;
         });
     };
 
+    $scope.getParentFolderId = function() {
+
+        var data = {
+            folder: $scope.folder,
+            '_token' : $('meta[name=csrf-token]').attr("content")
+        };
+
+        $http({
+            method: 'POST',
+            url: explorer_parent_url,
+            data: data
+        }).then(function(response) {
+            $scope.folder = response.data["parent_folder"];
+            $scope.getFiles();
+        });
+
+
+    };
+
     $scope.deleteFile = function(id) {
-        var url = $('#explorer-delete-url').html();
+        var url = explorer_delete_url;
 
         url = url + "/" + id;
 
@@ -87,8 +101,6 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
     };
 
     $scope.createFolder = function(folder) {
-        var url = $('#folder-create-url').html();
-
         var data = {
             name: $scope.folder_name,
             description: $scope.folder_desc,
@@ -97,7 +109,7 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
 
         $http({
             method: 'POST',
-            url: url,
+            url: explorer_create_url,
             data: data
         }).then(function(response) {
             notify(response.data, 1);

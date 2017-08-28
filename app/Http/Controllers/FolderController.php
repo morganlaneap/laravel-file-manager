@@ -33,4 +33,10 @@ class FolderController extends Controller
 
         return $folders->toJson();
     }
+
+    public function getParentFolderId(Request $request) {
+        $folder = $request->input('folder');
+
+        return Folder::where('id', $folder)->select('parent_folder')->firstOrFail();
+    }
 }
