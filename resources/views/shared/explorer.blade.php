@@ -1,6 +1,7 @@
 <div ng-controller="explorerController" ng-init="folder=0; getFiles()" >
     <div class="container">
         <div class="row">
+            <span class="hidden" ng-bind="folder" id="current-folder"></span>
             <div class="col-md-12">
                 <table class="table table-hover table-responsive">
                     <thead>

@@ -1,11 +1,13 @@
 var fileManagerApp = angular.module('fileManager', ['angularFileUpload']);
+
 fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$rootScope', function($scope, FileUploader, $rootScope) {
+
     var uploader = $scope.uploader = new FileUploader({
         url: upload_url,
         formData: [{
-                    '_token' : $('meta[name=csrf-token]').attr("content"),
-                    'folder' : $('#current-folder').html()
-                    }],
+            folder: $('#current-folder').html(),
+            '_token' : $('meta[name=csrf-token]').attr("content")
+        }],
         method: 'post'
     });
 
@@ -16,6 +18,13 @@ fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$r
             setTimeout(deferred.resolve, 1e3);
         }
     });
+
+    uploader.onBeforeUploadItem = function() {
+        $scope.uploader.formData = [{
+            folder: $('#current-folder').html(),
+            '_token' : $('meta[name=csrf-token]').attr("content")
+        }];
+    };
 
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         notify('File uploaded.', 1);

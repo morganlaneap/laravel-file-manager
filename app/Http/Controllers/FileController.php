@@ -15,8 +15,8 @@ class FileController extends Controller
 
             $path = $request->file('file')->store('uploads');
 
-            $folder = $request->input('folder');
-
+            //$folder = $request->input('folder');
+            $folder = 0;
             $path = str_replace("uploads/", "", $path);
 
             $size = $request->file('file')->getClientSize();
