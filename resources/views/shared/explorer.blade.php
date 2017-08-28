@@ -5,7 +5,7 @@
                 <span id="explorer-url" class="hidden">{{route('explorer.files')}}</span>
                 <span id="explorer-folder-url" class="hidden">{{route('explorer.folders')}}</span>
                 <span id="explorer-delete-url" class="hidden">{{route('explorer.delete')}}</span>
-
+                <span id="current-folder" ng-bind="folder"></span>
                 <table class="table table-hover table-responsive">
                     <thead>
                         <th>Name</th>
@@ -13,7 +13,7 @@
                         <th>Date Modified</th>
                         <th>Actions</th>
                     </thead>
-                    <tr ng-hide="folder==0" ng-click="folder=0; getFiles()">
+                    <tr class="clickable-row" ng-hide="folder==0" ng-click="folder=parentfolder; getFiles()">
                         <td>
                             <i class="fa fa-level-up fa-2x"></i>&nbsp;&nbsp;
                         </td>

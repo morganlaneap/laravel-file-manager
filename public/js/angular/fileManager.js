@@ -1,8 +1,13 @@
 var fileManagerApp = angular.module('fileManager', ['angularFileUpload']);
 fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$rootScope', function($scope, FileUploader, $rootScope) {
+
+
     var uploader = $scope.uploader = new FileUploader({
         url: $('#upload-url').html(),
-        formData: [{'_token' : $('meta[name=csrf-token]').attr("content")}],
+        formData: [{
+                    '_token' : $('meta[name=csrf-token]').attr("content"),
+                    'folder' : $('#current-folder').html()
+                    }],
         method: 'post'
     });
 
@@ -26,21 +31,18 @@ fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$r
         $rootScope.$emit('getFiles', {});
     }
 
+
+
 }]);
 
-fileManagerApp.controller('explorerController', function ($scope, $http, $rootScope, $httpParamSerializer) {
+fileManagerApp.controller('explorerController', function ($scope, $http, $rootScope) {
     $rootScope.$on('getFiles', function() {
         $scope.getFiles();
     });
 
     $scope.getFiles = function() {
 
-        var parent = $scope.folder;
         var folder = $scope.folder;
-
-        if (parent != "0" && folder == "0") {
-            folder = parent;
-        }
 
         var url = $('#explorer-url').html();
         var folder_url = $('#explorer-folder-url').html();

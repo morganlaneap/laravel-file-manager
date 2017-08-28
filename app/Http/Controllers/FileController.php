@@ -15,6 +15,8 @@ class FileController extends Controller
 
             $path = $request->file('file')->store('uploads');
 
+            $folder = $request->input('folder');
+
             $path = str_replace("uploads/", "", $path);
 
             $size = $request->file('file')->getClientSize();
@@ -23,7 +25,7 @@ class FileController extends Controller
 
             $file = new File();
             $file->user_id = Auth::id();
-            $file->folder_id = 0;
+            $file->folder_id = $folder;
             $file->file_name = $fileName;
             $file->file_extension = $fileExt;
             $file->file_size = $size;
