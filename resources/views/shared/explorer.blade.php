@@ -17,13 +17,13 @@
                         <td></td><td></td><td></td>
                     </tr>
                     <tr class="clickable-row" ng-repeat="f in folders" ng-click="$parent.folder=f.id; getFiles()">
-                        <td><i class="fa fa-folder fa-2x"></i>&nbsp;&nbsp;@{{ f.folder_name }}</td>
+                        <td><i class="fa fa-folder fa-2x" style="vertical-align:  -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ f.folder_name }}</td>
                         <td></td>
                         <td>@{{ f.updated_at }}</td>
                         <td></td>
                     </tr>
                     <tr ng-repeat="file in files">
-                        <td>@{{ file.file_name }}</td>
+                        <td><i class="fa fa-file-text-o fa-2x" style="vertical-align: -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ file.file_name }}</td>
                         <td>@{{ file.file_size/1024/1024|number:2 }} MB</td>
                         <td>@{{ file.updated_at }}</td>
                         <td>
