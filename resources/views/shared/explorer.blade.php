@@ -1,4 +1,4 @@
-<div ng-controller="explorerController" ng-init="folder=0; getFiles()" >
+<div ng-controller="explorerController" ng-init="folder=0; parentfolder=0; getFiles()" >
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -19,7 +19,7 @@
                         </td>
                         <td></td><td></td><td></td>
                     </tr>
-                    <tr class="clickable-row" ng-repeat="f in folders" ng-click="$parent.folder=f.id; getFiles()">
+                    <tr class="clickable-row" ng-repeat="f in folders" ng-click="$parent.parentfolder=$parent.folder;$parent.folder=f.id; getFiles()">
                         <td><i class="fa fa-folder fa-2x"></i>&nbsp;&nbsp;@{{ f.folder_name }}</td>
                         <td></td>
                         <td>@{{ f.updated_at }}</td>

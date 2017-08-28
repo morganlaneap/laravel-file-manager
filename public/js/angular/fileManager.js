@@ -34,13 +34,19 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
     });
 
     $scope.getFiles = function() {
-        console.log($scope.folder);
+
+        var parent = $scope.folder;
+        var folder = $scope.folder;
+
+        if (parent != "0" && folder == "0") {
+            folder = parent;
+        }
 
         var url = $('#explorer-url').html();
         var folder_url = $('#explorer-folder-url').html();
 
         var data = {
-            folder: $scope.folder,
+            folder: folder,
             '_token' : $('meta[name=csrf-token]').attr("content")
         };
 

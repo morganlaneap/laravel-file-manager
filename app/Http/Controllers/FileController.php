@@ -41,9 +41,9 @@ class FileController extends Controller
 
         // un-foldered files
         if ($folder == 0) {
-            $files = File::doesntHave('folder')->where('user_id', Auth::id())->get();
+            $files = File::where('folder_id' ,'0')->where('user_id', Auth::id())->get();
         } else {
-            $files = File::has('folder')->where('folder_id', $folder)->get();
+            $files = File::where('folder_id', $folder)->where('user_id', Auth::id())->get();
         }
 
         return $files->toJson();
