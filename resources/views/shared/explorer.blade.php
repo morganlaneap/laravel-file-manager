@@ -7,6 +7,7 @@
                 <table class="table table-hover table-responsive" ng-show="folder==0 ? folders.length + files.length>0 : true">
                     <thead>
                         <th>Name</th>
+                        <th>Type</th>
                         <th>Size</th>
                         <th>Date Modified</th>
                         <th>Actions</th>
@@ -15,16 +16,18 @@
                         <td>
                             <i class="fa fa-level-up fa-2x"></i>&nbsp;&nbsp;
                         </td>
-                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td>
                     </tr>
                     <tr class="clickable-row" ng-repeat="f in folders" ng-click="$parent.folder=f.id; getFiles()">
                         <td><i class="fa fa-folder fa-2x" style="vertical-align:  -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ f.folder_name }}</td>
+                        <td>Folder</td>
                         <td></td>
                         <td>@{{ f.updated_at }}</td>
                         <td></td>
                     </tr>
                     <tr ng-repeat="file in files">
                         <td><i class="fa fa-file-text-o fa-2x" style="vertical-align: -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ file.file_name }}</td>
+                        <td>@{{ file.file_extension }}</td>
                         <td>@{{ file.file_size/1024/1024|number:2 }} MB</td>
                         <td>@{{ file.updated_at }}</td>
                         <td>
