@@ -35,7 +35,7 @@
 <body>
 <div id="app">
     <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
@@ -93,8 +93,9 @@
             </div>
         </div>
     </nav>
-
+    <div ng-app="fileManager">
     @yield('content')
+    </div>
 
     <div>
         <div class="container">

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <div ng-app="fileManager">
+
     {{-- Include modal upload here --}}
     @include('shared.upload')
 
@@ -39,5 +39,5 @@
         <br />
 
     @include('shared.explorer')
-    </div>
+
 @endsection
