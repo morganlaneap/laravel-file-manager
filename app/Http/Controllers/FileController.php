@@ -70,4 +70,19 @@ class FileController extends Controller
             return response()->json(['msg' => $ex->getMessage(), 'status' => '500'], 500);
         }
     }
+
+    public function renameFile(Request $request) {
+        $id = $request->input('fileId');
+        $name = $request->input('fileName');
+
+        $ext = pathinfo($name, PATHINFO_EXTENSION);
+
+        $file = File::where('id', $id)->first();
+
+        $file->file_name = $name;
+        $file->file_extension = $ext;
+        $file->save();
+
+        return response()->json(['msg' => 'File renamed.', 'status' => '200'], 200);
+    }
 }

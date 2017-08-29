@@ -24,6 +24,7 @@
         var explorer_parent_url = '{{route('explorer.folder.parent')}}';
         var explorer_delete_url = '{{route('explorer.delete')}}';
         var explorer_create_url = '{{route('explorer.folder.create')}}';
+        var explorer_rename_file_url = '{{route('explorer.file.rename')}}';
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

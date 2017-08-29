@@ -126,6 +126,24 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
             $('#folder-create-modal').modal('hide');
             $scope.getFiles();
         });
+    };
+
+    $scope.renameFile = function() {
+        var data = {
+            fileName: $scope.fileName,
+            fileId: $scope.fileId,
+            '_token' : $('meta[name=csrf-token]').attr("content")
+        };
+
+        $http({
+            method: 'POST',
+            url: explorer_rename_file_url,
+            data: data
+        }).then(function(response) {
+            notify(response.data, 1);
+            $('#rename-file-modal').modal('hide');
+            $scope.getFiles();
+        });
     }
 });
 

@@ -1,4 +1,5 @@
-<div ng-controller="explorerController" ng-init="folder=0; getFiles()" >
+<div  ng-controller="explorerController" ng-init="folder=0; getFiles()">
+<div>
     <div class="container">
         <div class="row">
             <span class="hidden" ng-bind="folder" id="current-folder"></span>
@@ -32,12 +33,14 @@
                             <td></td>
                         </tr>
                         <tr ng-repeat="file in files">
+                            <td class="hidden">@{{ file.id }}</td>
                             <td><i class="fa fa-file-text-o fa-2x" style="vertical-align: -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ file.file_name }}</td>
                             <td>@{{ file.file_extension }}</td>
                             <td>@{{ file.file_size/1024/1024|number:2 }} MB</td>
                             <td>@{{ file.updated_at }}</td>
                             <td>
                                 <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
+                                <a class="btn btn-default btn-sm" data-toggle="modal" data-target="#rename-file-modal" ng-click="$parent.fileName=file.file_name; $parent.fileId=file.id;"><i class="fa fa-pencil"></i></a>
                                 <a class="btn btn-danger btn-sm" ng-click="deleteFile(file.id)"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -49,7 +52,7 @@
 </div>
 <br>
 <!-- add folder modal -->
-<div ng-controller="explorerController" class="modal fade" id="folder-create-modal" tabindex="-1" role="dialog">
+<div class="modal fade" id="folder-create-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -74,4 +77,26 @@
             </div>
         </div>
     </div>
+</div>
+<!-- rename file modal -->
+<div class="modal fade" id="rename-file-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Rename file...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label><b>File Name:</b></label>
+                    <input type="text" ng-model="fileName" class="form-control" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;&nbsp;Cancel</button>
+                <button type="button" class="btn btn-success" ng-click="renameFile()"><i class="fa fa-save"></i>&nbsp;&nbsp;Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
