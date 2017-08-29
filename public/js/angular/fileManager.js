@@ -113,6 +113,7 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
         var data = {
             name: $scope.folder_name,
             description: $scope.folder_desc,
+            parent: 0,
             '_token' : $('meta[name=csrf-token]').attr("content")
         };
 
@@ -123,6 +124,7 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
         }).then(function(response) {
             notify(response.data, 1);
             $('#folder-create-modal').modal('hide');
+            $scope.getFiles();
         });
     }
 });

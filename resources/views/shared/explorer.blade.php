@@ -3,7 +3,8 @@
         <div class="row">
             <span class="hidden" ng-bind="folder" id="current-folder"></span>
             <div class="col-md-12">
-                <table class="table table-hover table-responsive">
+                <span ng-show="folders.length+files.length==0 && folder==0">No files found.</span>
+                <table class="table table-hover table-responsive" ng-show="folder==0 ? folders.length + files.length>0 : true">
                     <thead>
                         <th>Name</th>
                         <th>Size</th>

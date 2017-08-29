@@ -10,12 +10,15 @@ class FolderController extends Controller
     public function createFolder(Request $request) {
         $name = $request->input('name');
         $desc = $request->input('description');
+        $parent = $request->input('parent');
+
 
         $folder = new Folder();
         $folder->folder_name = $name;
         $folder->folder_desc = $desc;
         $folder->category = 0;
         $folder->user_id = Auth::id();
+        $folder->parent_folder = $parent;
         $folder->save();
 
         return response()->json(['msg' => 'Folder created.', 'status' => '200'], 200);
