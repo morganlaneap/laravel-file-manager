@@ -109,11 +109,11 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
         });
     };
 
-    $scope.createFolder = function(folder) {
+    $scope.createFolder = function() {
         var data = {
             name: $scope.folder_name,
             description: $scope.folder_desc,
-            parent: 0,
+            parent: $scope.folder,
             '_token' : $('meta[name=csrf-token]').attr("content")
         };
 
@@ -125,6 +125,9 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
             notify(response.data, 1);
             $('#folder-create-modal').modal('hide');
             $scope.getFiles();
+
+            $scope.folder_name = '';
+            $scope.folder_desc = '';
         });
     };
 
