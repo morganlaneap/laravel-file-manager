@@ -19,4 +19,10 @@ class ConfigHelper
 
         return $array->{'value'};
     }
+
+    public static function setValue($item, $value) {
+        $config = Config::where('item', $item)->first();
+        $config->value = $value;
+        $config->save();
+    }
 }

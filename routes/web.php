@@ -34,5 +34,6 @@ Route::middleware(['auth'])->group(function() {
 
     Route::prefix('admin')->middleware(['adminCheck'])->group(function() {
        Route::get('settings', ['uses' => 'Admin\SettingsController@index'])->name('admin.settings');
+       Route::post('settings/save', ['uses' => 'Admin\SettingsController@saveSettings'])->name('admin.settings.save');
     });
 });
