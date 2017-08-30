@@ -144,7 +144,11 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
             $('#rename-file-modal').modal('hide');
             $scope.getFiles();
         });
-    }
+    };
+
+    $scope.orderByMe = function(x) {
+        $scope.myOrderBy = x;
+    };
 });
 
 fileManagerApp.directive("fmLoading", function($http) {

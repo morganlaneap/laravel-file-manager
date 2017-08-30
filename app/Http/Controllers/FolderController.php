@@ -29,9 +29,9 @@ class FolderController extends Controller
 
         if ($folder == 0) {
             // get the parent folders
-            $folders = Folder::where('parent_folder', '0')->where('user_id', Auth::id())->get();
+            $folders = Folder::where('parent_folder', '0')->where('user_id', Auth::id())->orderBy('folder_name', 'asc')->get();
         } else {
-            $folders = Folder::where('parent_folder', $folder)->where('user_id', Auth::id())->get();
+            $folders = Folder::where('parent_folder', $folder)->where('user_id', Auth::id())->orderBy('folder_name', 'asc')->get();
         }
 
         return $folders->toJson();

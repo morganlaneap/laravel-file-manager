@@ -13,10 +13,10 @@
                     <span ng-show="folders.length+files.length==0 && folder==0">No files found.</span>
                     <table class="table table-hover table-responsive" ng-show="folder==0 ? folders.length + files.length>0 : true">
                         <thead>
-                            <th>Name</th>
+                            <th class="sortable" ng-click="orderByMe('file_name')"><i class="fa fa-sort"></i>&nbsp;&nbsp;Name</th>
                             <th>Type</th>
-                            <th>Size</th>
-                            <th>Date Modified</th>
+                            <th class="sortable" ng-click="orderByMe('file_size')"><i class="fa fa-sort"></i>&nbsp;&nbsp;Size</th>
+                            <th class="sortable" ng-click="orderByMe('updated_at')"><i class="fa fa-sort"></i>&nbsp;&nbsp;Date Modified</th>
                             <th>Actions</th>
                         </thead>
                         <tr class="clickable-row" ng-hide="folder==0" ng-click="getParentFolderId()">
@@ -25,14 +25,14 @@
                             </td>
                             <td></td><td></td><td></td><td></td>
                         </tr>
-                        <tr class="clickable-row" ng-repeat="f in folders" ng-click="$parent.folder=f.id; getFiles()">
+                        <tr class="clickable-row" ng-repeat="f in folders | orderBy:myOrderBy" ng-click="$parent.folder=f.id; getFiles()">
                             <td><i class="fa fa-folder fa-2x" style="vertical-align:  -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ f.folder_name }}</td>
                             <td>Folder</td>
                             <td></td>
                             <td>@{{ f.updated_at }}</td>
                             <td></td>
                         </tr>
-                        <tr ng-repeat="file in files">
+                        <tr ng-repeat="file in files | orderBy:myOrderBy">
                             <td class="hidden">@{{ file.id }}</td>
                             <td><i class="fa fa-file-text-o fa-2x" style="vertical-align: -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ file.file_name }}</td>
                             <td>@{{ file.file_extension }}</td>
