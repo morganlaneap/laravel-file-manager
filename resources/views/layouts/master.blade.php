@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>LaravelFileManager</title>
+    <title>{{ \App\Helpers\ConfigHelper::getValue('site_name') }} - LaravelFileManager</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -69,7 +69,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a><i class="fa fa-users"></i>&nbsp;&nbsp;Manage Users</a></li>
-                                <li><a><i class="fa fa-cogs"></i>&nbsp;&nbsp;System Settings</a></li>
+                                <li><a href="{{route('admin.settings')}}"><i class="fa fa-cogs"></i>&nbsp;&nbsp;System Settings</a></li>
                             </ul>
                         </li>
                     @endif
