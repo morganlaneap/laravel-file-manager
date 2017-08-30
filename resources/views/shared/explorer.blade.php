@@ -21,7 +21,7 @@
                         </thead>
                         <tr class="clickable-row" ng-hide="folder==0" ng-click="getParentFolderId()">
                             <td>
-                                <i class="fa fa-level-up fa-2x"></i>&nbsp;&nbsp;
+                                <i class="fa fa-level-up fa-2x"></i>&nbsp;&nbsp;..
                             </td>
                             <td></td><td></td><td></td><td></td>
                         </tr>
