@@ -1,5 +1,7 @@
 var fileManagerApp = angular.module('fileManager', ['angularFileUpload']);
 
+
+// Controllers //
 fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$rootScope', function($scope, FileUploader, $rootScope) {
 
     var uploader = $scope.uploader = new FileUploader({
@@ -178,6 +180,15 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
     }
 });
 
+fileManagerApp.controller('settingsController', function($scope){
+   $scope.checkShowFooterBox = function() {
+       $scope.showFooterTextbox = $('#showFooter').is(':checked');
+   };
+});
+
+
+
+// Directives //
 fileManagerApp.directive("fmLoading", function($http) {
     return {
         restrict: 'A',

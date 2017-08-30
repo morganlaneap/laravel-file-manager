@@ -118,7 +118,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <span>LaravelFileManager by Morgan Lane | <a target="_blank" href="https://github.com/morganlaneap/laravel-file-manager">GitHub</a></span>
+                    <span>
+                        @if(\App\Helpers\ConfigHelper::getValue('show_footer_message'))
+                            {{ \App\Helpers\ConfigHelper::getValue('footer_message') }} |
+                        @endif
+                        <i class="fa fa-github"></i>&nbsp;&nbsp;<a target="_blank" href="https://github.com/morganlaneap/laravel-file-manager">Project GitHub</a>
+                    </span>
                 </div>
             </div>
         </div>
