@@ -30,7 +30,10 @@
                             <td>Folder</td>
                             <td></td>
                             <td>@{{ f.updated_at }}</td>
-                            <td></td>
+                            <td>
+                                <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
+                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rename-folder-modal" ng-click="$parent.folderName=f.folder_name; $parent.folderId=f.id; showFolderRenameModal($event);"><i class="fa fa-pencil"></i></a>
+                            </td>
                         </tr>
                         <tr ng-repeat="file in files | orderBy:myOrderBy">
                             <td class="hidden">@{{ file.id }}</td>
@@ -40,7 +43,7 @@
                             <td>@{{ file.updated_at }}</td>
                             <td>
                                 <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
-                                <a class="btn btn-default btn-sm" data-toggle="modal" data-target="#rename-file-modal" ng-click="$parent.fileName=file.file_name; $parent.fileId=file.id;"><i class="fa fa-pencil"></i></a>
+                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rename-file-modal" ng-click="$parent.fileName=file.file_name; $parent.fileId=file.id;"><i class="fa fa-pencil"></i></a>
                                 <a class="btn btn-danger btn-sm" ng-click="deleteFile(file.id)"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -99,4 +102,27 @@
         </div>
     </div>
 </div>
+
+    <!-- rename folder modal -->
+    <div class="modal fade" id="rename-folder-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Rename folder...</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label><b>Folder Name:</b></label>
+                        <input type="text" ng-model="folderName" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;&nbsp;Cancel</button>
+                    <button type="button" class="btn btn-success" ng-click="renameFolder()"><i class="fa fa-save"></i>&nbsp;&nbsp;Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

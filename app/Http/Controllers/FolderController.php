@@ -42,4 +42,16 @@ class FolderController extends Controller
 
         return Folder::where('id', $folder)->select('parent_folder')->firstOrFail();
     }
+
+    public function renameFolder(Request $request) {
+        $id = $request->input('id');
+        $name = $request->input('name');
+
+        $folder = Folder::where('id', $id)->first();
+
+        $folder->folder_name = $name;
+        $folder->save();
+
+        return response()->json(['msg' => 'Folder renamed.', 'status' => '200'], 200);
+    }
 }

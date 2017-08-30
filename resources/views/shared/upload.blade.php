@@ -36,8 +36,8 @@
                             <td><strong>@{{ item.file.name }}</strong></td>
                             <td ng-show="uploader.isHTML5" nowrap>@{{ item.file.size/1024/1024|number:2 }} MB</td>
                             <td ng-show="uploader.isHTML5">
-                                <div class="progress progress-striped">
-                                    <div class="progress progress-striped" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                <div class="progress" style="margin-top: 8px;">
+                                    <div class="progress-bar progress-striped" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
                                 </div>
                             </td>
                             <td class="text-center">

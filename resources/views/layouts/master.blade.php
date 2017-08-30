@@ -25,6 +25,7 @@
         var explorer_delete_url = '{{route('explorer.delete')}}';
         var explorer_create_url = '{{route('explorer.folder.create')}}';
         var explorer_rename_file_url = '{{route('explorer.file.rename')}}';
+        var explorer_rename_folder_url = '{{route('explorer.folder.rename')}}';
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -35,8 +36,8 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container-fluid">
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
@@ -56,7 +57,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{route('home')}}">Dashboard</a></li>
+                    <li><a href="{{route('home')}}"><i class="fa fa-folder-open-o"></i>&nbsp;&nbsp;My Files</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -68,7 +69,7 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                <i class="fa fa-user-circle-o"></i>&nbsp;&nbsp; {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
 

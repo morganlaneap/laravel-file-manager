@@ -149,9 +149,33 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
         });
     };
 
+    $scope.renameFolder = function() {
+        var data = {
+            id: $scope.folderId,
+            name: $scope.folderName,
+            '_token': $('meta[name=csrf-token]').attr('content')
+        };
+
+        $http({
+            method: 'POST',
+            url: explorer_rename_folder_url,
+            data: data
+        }).then(function(response) {
+            notify(response.data, 1);
+            $('#rename-folder-modal').modal('hide');
+            $scope.getFiles();
+        });
+    };
+
     $scope.orderByMe = function(x) {
         $scope.myOrderBy = x;
     };
+
+    $scope.showFolderRenameModal = function($event) {
+        $event.stopPropagation();
+
+        $('#rename-folder-modal').modal('toggle');
+    }
 });
 
 fileManagerApp.directive("fmLoading", function($http) {

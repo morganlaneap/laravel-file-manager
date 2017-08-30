@@ -19,7 +19,7 @@
                         </div>
                     @endif
 
-                    <h2>Dashboard</h2>
+                    <h2><i class="fa fa-folder-open-o"></i>&nbsp;&nbsp;My Files</h2>
                 </div>
             </div>
         </div>
