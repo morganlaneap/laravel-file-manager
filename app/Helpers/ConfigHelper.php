@@ -13,6 +13,10 @@ use App\Config;
 class ConfigHelper
 {
     public static function getValue($item) {
-        return Config::where('item', $item)->first(['value']);
+        $result = Config::where('item', $item)->first(['value']);
+
+        $array = json_decode($result);
+
+        return $array->{'value'};
     }
 }
