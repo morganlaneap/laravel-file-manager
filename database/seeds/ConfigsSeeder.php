@@ -13,6 +13,7 @@ class ConfigsSeeder extends Seeder
     public function run()
     {
         Config::firstOrNew(array(
+            'id' => 1,
             'item' => 'site_name',
             'value' => 'LaravelFileManager',
             'created_at' => Carbon::now(),
@@ -20,8 +21,17 @@ class ConfigsSeeder extends Seeder
         ))->save();
 
         Config::firstOrNew(array(
+            'id' => 2,
             'item' => 'show_footer_message',
             'value' => 'true',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ))->save();
+
+        Config::firstOrNew(array(
+            'id' => 3,
+            'item' => 'footer_message',
+            'value' => 'LaravelFileManager by Morgan Lane',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ))->save();
