@@ -23,7 +23,7 @@ class ConfigsSeeder extends Seeder
         Config::firstOrNew(array(
             'id' => 2,
             'item' => 'show_footer_message',
-            'value' => 'true',
+            'value' => '1',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ))->save();
