@@ -15,6 +15,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function() {
     Route::any('/', ['uses' => 'HomeController@index'])->name('home');
+    Route::any('/forbidden', ['uses' => 'HomeController@forbidden'])->name('forbidden');
 
     // Explorer routes
     Route::post('/upload', ['uses' => 'FileController@uploadFile'])->name('file.upload');
@@ -30,4 +31,8 @@ Route::middleware(['auth'])->group(function() {
     // Profile routes
     Route::get('/profile', ['uses' => 'UserController@index'])->name('profile');
     Route::post('/profile/update', ['uses' => 'UserController@updateProfile'])->name('profile.update');
+
+    Route::prefix('admin')->middleware(['adminCheck'])->group(function() {
+       Route::get('settings', ['uses' => 'Admin\SettingsController@index'])->name('admin.settings');
+    });
 });
