@@ -21,7 +21,7 @@ I have a lot of features planned for the future.
 2) Run `composer update`
 3) Set your database in `.env` (if it doesn't exist, create a copy from `env.example`)
 4) Run `php artisan migrate` to update your database.
-5) Run `php db:seed` to insert the default values required.
+5) Run `php artisan db:seed` to insert the default values required.
 6) Navigate to *http://your_host/public/register* and create an account.
 7) Configure the application to your needs.
 8) You're good to go.
