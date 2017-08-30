@@ -19,8 +19,8 @@ fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$r
         }
     });
 
-    uploader.onBeforeUploadItem = function() {
-        $scope.uploader.formData = [{
+    uploader.onBeforeUploadItem = function(item) {
+        item.formData = [{
             folder: $('#current-folder').html(),
             '_token' : $('meta[name=csrf-token]').attr("content")
         }];
