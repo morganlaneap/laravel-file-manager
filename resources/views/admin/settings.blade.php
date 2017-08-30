@@ -43,6 +43,16 @@
                                     <input name="siteName" id="siteName" class="form-control" value="{{ \App\Helpers\ConfigHelper::getValue('site_name') }}" />
                                 </div>
 
+                                <div class="form-group">
+                                    <label><b>Footer Message</b></label>
+                                    <p>You can customise the footer message for the application.</p>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="showFooter" id="showFooter" checked="{{ \App\Helpers\ConfigHelper::getValue('show_footer_message') }}"> Show footer message
+                                        </label>
+                                    </div>
+                                </div>
+
                                 <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp;&nbsp;Save Changes</button>
                             </div>
                         </div>

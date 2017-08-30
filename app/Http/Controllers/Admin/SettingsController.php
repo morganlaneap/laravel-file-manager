@@ -14,8 +14,10 @@ class SettingsController extends Controller
 
     public function saveSettings(Request $request) {
         $siteName = $request->input('siteName');
+        $showFooter = $request->input('showFooter');
 
         ConfigHelper::setValue('site_name', $siteName);
+        ConfigHelper::setValue('show_footer_message', $showFooter);
 
         return redirect()->route('admin.settings')->with('result', 'Settings saved.');
     }
