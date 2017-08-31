@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Folder;
 use Auth;
+use DB;
+use Carbon\Carbon;
+
 class FolderController extends Controller
 {
     public function createFolder(Request $request) {
@@ -55,15 +58,36 @@ class FolderController extends Controller
         return response()->json(['msg' => 'Folder renamed.', 'status' => '200'], 200);
     }
 
-    public function getFolderName(Request $request) {
-        $id = $request->input('id');
+    public function getFolderBreadcrumb(Request $request)
+    {
+        // This probably could be better.
+        $id = $request->input('folder');
 
-        if ($id == 0) {
-            return response()->json(['folder_name' => 'My Files']);
+        if ($id != 0) {
+            // Get the current folder
+            $folders = Folder::where('id', $id)->get();
+
+            // See if it has a parent
+            $parentId = $folders[0]["parent_folder"];
+
+            if ($parentId != 0) {
+                $looping = true;
+
+                while ($looping) {
+                    // Get the parent details.
+                    $nextFolder = Folder::where('id', $parentId)->get();
+
+                    $parentId = $nextFolder[0]["parent_folder"];
+
+                    $folders = $folders->merge($nextFolder);
+
+                    $looping = $parentId != 0;
+                }
+            }
+
+            return $folders->toJson();
         }
 
-        $folder = Folder::where('id', $id)->select('folder_name')->firstOrFail();
-
-        return $folder->toJson();
+        return null;
     }
 }
