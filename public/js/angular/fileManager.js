@@ -1,9 +1,33 @@
 var fileManagerApp = angular.module('fileManager', ['angularFileUpload', 'ui.sortable']);
 
+var httpStart;
+var httpEnd;
+
+// Factories //
+fileManagerApp.factory('httpTimer', ['$q', function($q) {
+    return {
+        'request': function(config) {
+            // do something on success
+            httpStart = new Date().getTime();
+            return config;
+        },
+
+        'response': function(response) {
+            // do something on success
+            httpEnd = new Date().getTime();
+            return response;
+        }
+    };
+}]);
+
+// Config //
+fileManagerApp.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('httpTimer');
+}]);
+
 
 // Controllers //
-fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$rootScope', function($scope, FileUploader, $rootScope) {
-
+var uploadFileController = function($scope, FileUploader, $rootScope) {
     var uploader = $scope.uploader = new FileUploader({
         url: upload_url,
         formData: [{
@@ -32,19 +56,17 @@ fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$r
         notify('File uploaded.', 1);
         $scope.getFiles();
     };
+
     uploader.onErrorItem = function(fileItem, response, status, headers) {
         notify('Failed to upload file: ' + status, 3);
     };
 
     $scope.getFiles = function() {
         $rootScope.$emit('getFiles', {});
-    }
+    };
+};
 
-
-
-}]);
-
-fileManagerApp.controller('explorerController', function ($scope, $http, $rootScope) {
+var explorerController = function ($scope, $http, $rootScope) {
     $rootScope.$on('getFiles', function() {
         $scope.getFiles();
     });
@@ -245,18 +267,16 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
     };
 
     $scope.dropzone = {};
-});
+};
 
-fileManagerApp.controller('settingsController', function($scope){
-   $scope.checkShowFooterBox = function() {
-       $scope.showFooterTextbox = $('#showFooter').is(':checked');
-   };
-});
-
-
+var settingsController = function($scope){
+    $scope.checkShowFooterBox = function() {
+        $scope.showFooterTextbox = $('#showFooter').is(':checked');
+    };
+};
 
 // Directives //
-fileManagerApp.directive("fmLoading", function($http) {
+var fmLoading = function($http) {
     return {
         restrict: 'A',
         link: function(scope, elm, attrs) {
@@ -265,16 +285,26 @@ fileManagerApp.directive("fmLoading", function($http) {
             };
 
             scope.$watch(scope.isLoading, function (v) {
-               if (v) {
-                   $("#" + attrs.fmLoading).hide();
-                   elm.show();
-               } else {
-                   $("#" + attrs.fmLoading).show();
-                   elm.hide();
-               }
+                if (v) {
+                    $("#" + attrs.fmLoading).hide();
+                    elm.show();
+                } else {
+                    $("#" + attrs.fmLoading).show();
+                    elm.hide();
+                }
             });
         }
     }
-});
+};
 
-//angular.bootstrap(document, ['fileManagerApp']);
+// Assignment //
+fileManagerApp.controller('uploadFileController', uploadFileController);
+fileManagerApp.controller('explorerController', explorerController);
+fileManagerApp.controller('settingsController', settingsController);
+fileManagerApp.directive('fmLoading', fmLoading);
+
+// Injection //
+uploadFileController.$inject = ['$scope', 'FileUploader', '$rootScope'];
+explorerController.$inject = ['$scope' , '$http', '$rootScope'];
+settingsController.$inject = ['$scope'];
+fmLoading.$inject = ['$http'];

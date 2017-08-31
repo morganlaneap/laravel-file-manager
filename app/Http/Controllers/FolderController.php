@@ -59,7 +59,7 @@ class FolderController extends Controller
         $id = $request->input('id');
 
         if ($id == 0) {
-            return response()->json(['folder_name' => 'Root']);
+            return response()->json(['folder_name' => 'My Files']);
         }
 
         $folder = Folder::where('id', $id)->select('folder_name')->firstOrFail();
