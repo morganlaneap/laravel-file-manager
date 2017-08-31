@@ -6,6 +6,7 @@ permissions and a quote/size tracker so you can limit how much people can upload
 ### Current Features
 - Multiple file uploading.
 - Folder management system.
+- Ability to drag and drop files to move them.
 - Ability to download uploaded files.
 - Ability to rename existing files and folders.
 - Ability to sort by Name, Size or Date Modified.
