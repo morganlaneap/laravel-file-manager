@@ -1,34 +1,7 @@
 var fileManagerApp = angular.module('fileManager', ['angularFileUpload', 'ui.sortable']);
 
-var httpStart;
-var httpEnd;
-
-// Factories //
-fileManagerApp.factory('httpTimer', ['$q', function($q) {
-    return {
-        'request': function(config) {
-            // do something on success
-            httpStart = new Date().getTime();
-            return config;
-        },
-
-        'response': function(response) {
-            // do something on success
-            httpEnd = new Date().getTime();
-            return response;
-        }
-    };
-}]);
-
-// Config //
-fileManagerApp.config(['$httpProvider', function($httpProvider) {
-    $httpProvider.interceptors.push('httpTimer');
-    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-}]);
-
-
 // Controllers //
-var uploadFileController = function($scope, FileUploader, $rootScope) {
+fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$rootScope', function($scope, FileUploader, $rootScope) {
     var uploader = $scope.uploader = new FileUploader({
         url: upload_url,
         formData: [{
@@ -57,7 +30,6 @@ var uploadFileController = function($scope, FileUploader, $rootScope) {
         notify('File uploaded.', 1);
         $scope.getFiles();
     };
-
     uploader.onErrorItem = function(fileItem, response, status, headers) {
         notify('Failed to upload file: ' + status, 3);
     };
@@ -65,9 +37,9 @@ var uploadFileController = function($scope, FileUploader, $rootScope) {
     $scope.getFiles = function() {
         $rootScope.$emit('getFiles', {});
     };
-};
+}]);
 
-var explorerController = function ($scope, $http, $rootScope) {
+fileManagerApp.controller('explorerController', function ($scope, $http, $rootScope) {
     $rootScope.$on('getFiles', function() {
         $scope.getFiles();
     });
@@ -104,8 +76,6 @@ var explorerController = function ($scope, $http, $rootScope) {
         }).then(function(response) {
             $scope.folderBreadcrumb = response.data;
         });
-
-        console.log($scope.folder);
 
         //$scope.getFolderBreadcrumb();
     };
@@ -263,16 +233,16 @@ var explorerController = function ($scope, $http, $rootScope) {
     };
 
     $scope.dropzone = {};
-};
+});
 
-var settingsController = function($scope){
+fileManagerApp.controller('settingsController', function($scope){
     $scope.checkShowFooterBox = function() {
         $scope.showFooterTextbox = $('#showFooter').is(':checked');
     };
-};
+});
 
 // Directives //
-var fmLoading = function($http) {
+fileManagerApp.directive("fmLoading", function($http) {
     return {
         restrict: 'A',
         link: function(scope, elm, attrs) {
@@ -291,16 +261,44 @@ var fmLoading = function($http) {
             });
         }
     }
-};
+});
+
+//// OLD CODE - DOESN'T WORK
+
+/*var httpStart;
+ var httpEnd;*/
+
+// Factories //
+/*fileManagerApp.factory('httpTimer', ['$q', function($q) {
+ return {
+ 'request': function(config) {
+ // do something on success
+ httpStart = new Date().getTime();
+ return config;
+ },
+
+ 'response': function(response) {
+ // do something on success
+ httpEnd = new Date().getTime();
+ return response;
+ }
+ };
+ }]);*/
+
+// Config //
+/*fileManagerApp.config(['$httpProvider', function($httpProvider) {
+ $httpProvider.interceptors.push('httpTimer');
+ $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+ }]);*/
 
 // Assignment //
-fileManagerApp.controller('uploadFileController', uploadFileController);
-fileManagerApp.controller('explorerController', explorerController);
-fileManagerApp.controller('settingsController', settingsController);
-fileManagerApp.directive('fmLoading', fmLoading);
+//fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$rootScope', uploadFileController]);
+//fileManagerApp.controller('explorerController', ['$scope', '$http', '$rootScope', explorerController]);
+//fileManagerApp.controller('settingsController', ['$scope', settingsController]);
+//fileManagerApp.directive('fmLoading', fmLoading);
 
 // Injection //
-uploadFileController.$inject = ['$scope', 'FileUploader', '$rootScope'];
-explorerController.$inject = ['$scope' , '$http', '$rootScope'];
-settingsController.$inject = ['$scope'];
-fmLoading.$inject = ['$http'];
+//uploadFileController.$inject = ['$scope', 'FileUploader', '$rootScope'];
+//explorerController.$inject = ['$scope' , '$http', '$rootScope'];
+//settingsController.$inject = ['$scope'];
+//fmLoading.$inject = ['$http'];
