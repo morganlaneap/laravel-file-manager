@@ -181,31 +181,34 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
 
 
     $scope.moveFile = function(folder, file) {
+        var data = {
+            folderId: folder,
+            fileId: file,
+            '_token': $('meta[name=csrf-token]').attr('content')
+        };
 
+        $http({
+            method: 'POST',
+            url: explorer_move_file_url,
+            data: data
+        }).then(function(response) {
+            notify('File moved.', 1);
+            $scope.getFiles();
+        });
 
-        notify('File moved.', 1);
         //$scope.getFiles();
     };
 
     $scope.dropzoneFiles = [];
 
-    $scope.dragging = false;
-
     $scope.draggable = {
         connectWith: ".dropzone",
-        start: function(e, ui) {
-            $scope.$apply(function() {
-               $scope.dragging = true;
-            });
-        },
         update: function (e, ui) {
             if (ui.item.sortable.droptarget[0].classList[0] !== "dropzone")
                 ui.item.sortable.cancel();
         },
         stop: function (e, ui) {
-            if (ui.item.sortable.droptarget == undefined) {
-                $scope.$apply($scope.dragging = false);
-            } else if (ui.item.sortable.droptarget[0].classList[0] == "dropzone") {
+            if (ui.item.sortable.droptarget[0].classList[0] == "dropzone") {
                 $scope.$apply($scope.dragging = false);
 
                 // Now move the file
@@ -213,8 +216,9 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
                 var fileId = $(ui.item).data('file');
 
                 $scope.moveFile(folderId, fileId);
-            } else {
-                $scope.$apply($scope.dragging = false);
+
+                $scope.dropzone = {}; // clear the dropzone
+                $scope.dropzoneFiles = [];
             }
         }
     };

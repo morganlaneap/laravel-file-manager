@@ -85,4 +85,16 @@ class FileController extends Controller
 
         return response()->json(['msg' => 'File renamed.', 'status' => '200'], 200);
     }
+
+    public function moveFile(Request $request) {
+        $folderId = $request->input('folderId');
+        $fileId = $request->input('fileId');
+
+        $file = File::where('id', $fileId)->first();
+
+        $file->folder_id = $folderId;
+        $file->save();
+
+        return response()->json(['msg' => 'File moved.', 'status' => '200'], 200);
+    }
 }
