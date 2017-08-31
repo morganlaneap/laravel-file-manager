@@ -23,6 +23,7 @@ fileManagerApp.factory('httpTimer', ['$q', function($q) {
 // Config //
 fileManagerApp.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('httpTimer');
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 }]);
 
 
@@ -96,7 +97,17 @@ var explorerController = function ($scope, $http, $rootScope) {
             $scope.folders = response.data;
         });
 
-        $scope.getFolderName(folder);
+        $http({
+            method: 'POST',
+            url: explorer_get_folder_bc_url,
+            data: data
+        }).then(function(response) {
+            console.log($scope.folder);
+
+            $scope.folderBreadcrumb = response.data;
+        });
+
+        //$scope.getFolderBreadcrumb();
     };
 
     $scope.getParentFolderId = function() {
@@ -202,22 +213,6 @@ var explorerController = function ($scope, $http, $rootScope) {
 
         $('#rename-folder-modal').modal('toggle');
     };
-
-    $scope.getFolderName = function(folderId) {
-        var data = {
-            id: folderId,
-            '_token' : $('meta[name=csrf-token]').attr("content")
-        };
-
-        $http({
-            method: 'POST',
-            url: explorer_get_folder_name_url,
-            data: data
-        }).then(function(response) {
-            $scope.currentFolder = response.data["folder_name"];
-        });
-    };
-
 
     $scope.moveFile = function(folder, file) {
         var data = {
