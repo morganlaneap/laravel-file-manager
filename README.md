@@ -47,4 +47,5 @@ Here's a list of the other projects I've used in this:
 
 - [angular-file-upload](https://github.com/nervgh/angular-file-upload)
 - [toastrjs](https://github.com/CodeSeven/toastr)
+- [angular-ui](https://angular-ui.github.io/)
 - [angular drag and drop code](https://codepen.io/thgreasi/pen/zKWYWR)
