@@ -25,28 +25,34 @@
                             </td>
                             <td></td><td></td><td></td><td></td>
                         </tr>
-                        <tr class="clickable-row" ng-repeat="f in folders | orderBy:myOrderBy" ng-click="$parent.folder=f.id; getFiles()">
-                            <td><i class="fa fa-folder fa-2x" style="vertical-align:  -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ f.folder_name }}</td>
-                            <td>Folder</td>
-                            <td></td>
-                            <td>@{{ f.updated_at }}</td>
-                            <td>
-                                <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
-                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rename-folder-modal" ng-click="$parent.folderName=f.folder_name; $parent.folderId=f.id; showFolderRenameModal($event);"><i class="fa fa-pencil"></i></a>
-                            </td>
-                        </tr>
-                        <tr ng-repeat="file in files | orderBy:myOrderBy">
-                            <td class="hidden">@{{ file.id }}</td>
-                            <td><i class="fa fa-file-text-o fa-2x" style="vertical-align: -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ file.file_name }}</td>
-                            <td>@{{ file.file_extension }}</td>
-                            <td>@{{ file.file_size/1024/1024|number:2 }} MB</td>
-                            <td>@{{ file.updated_at }}</td>
-                            <td>
-                                <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
-                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rename-file-modal" ng-click="$parent.fileName=file.file_name; $parent.fileId=file.id;"><i class="fa fa-pencil"></i></a>
-                                <a class="btn btn-danger btn-sm" ng-click="deleteFile(file.id)"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        {{-- This row is for the folders, they act as a dropzone for files. --}}
+                        <tbody>
+                            <tr class="dropzone clickable-row" data-folder="@{{ f.id }}" ng-repeat="f in folders | orderBy:myOrderBy" ng-click="$parent.folder=f.id; getFiles()" ui-sortable="dropzone" ng-model="dropzoneFiles">
+                                <td><i class="fa fa-folder fa-2x" style="vertical-align:  -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ f.folder_name }}</td>
+                                <td>Folder</td>
+                                <td></td>
+                                <td>@{{ f.updated_at }}</td>
+                                <td>
+                                    <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
+                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rename-folder-modal" ng-click="$parent.folderName=f.folder_name; $parent.folderId=f.id; showFolderRenameModal($event);"><i class="fa fa-pencil"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {{-- This section is the files. They can be dragged to folders. --}}
+                        <tbody ui-sortable="draggable" ng-model="files">
+                            <tr ng-repeat="file in files | orderBy:myOrderBy" data-file="@{{ file.id }}">
+                                <td class="hidden">@{{ file.id }}</td>
+                                <td><i class="fa fa-file-text-o fa-2x" style="vertical-align: -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ file.file_name }}</td>
+                                <td>@{{ file.file_extension }}</td>
+                                <td>@{{ file.file_size/1024/1024|number:2 }} MB</td>
+                                <td>@{{ file.updated_at }}</td>
+                                <td>
+                                    <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
+                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rename-file-modal" ng-click="$parent.fileName=file.file_name; $parent.fileId=file.id;"><i class="fa fa-pencil"></i></a>
+                                    <a class="btn btn-danger btn-sm" ng-click="deleteFile(file.id)"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

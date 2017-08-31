@@ -29,7 +29,9 @@
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.17.2/sortable.min.js"></script>
     <!-- Angular Resources -->
     <script src="{{ asset('js/angular/angular-file-upload.min.js')}}"></script>
     <script src="{{ asset('js/angular/fileManager.js') }}"></script>

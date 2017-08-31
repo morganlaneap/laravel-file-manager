@@ -1,4 +1,4 @@
-var fileManagerApp = angular.module('fileManager', ['angularFileUpload']);
+var fileManagerApp = angular.module('fileManager', ['angularFileUpload', 'ui.sortable']);
 
 
 // Controllers //
@@ -177,7 +177,49 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
         $event.stopPropagation();
 
         $('#rename-folder-modal').modal('toggle');
-    }
+    };
+
+
+    $scope.moveFile = function(folder, file) {
+
+
+        notify('File moved.', 1);
+        //$scope.getFiles();
+    };
+
+    $scope.dropzoneFiles = [];
+
+    $scope.dragging = false;
+
+    $scope.draggable = {
+        connectWith: ".dropzone",
+        start: function(e, ui) {
+            $scope.$apply(function() {
+               $scope.dragging = true;
+            });
+        },
+        update: function (e, ui) {
+            if (ui.item.sortable.droptarget[0].classList[0] !== "dropzone")
+                ui.item.sortable.cancel();
+        },
+        stop: function (e, ui) {
+            if (ui.item.sortable.droptarget == undefined) {
+                $scope.$apply($scope.dragging = false);
+            } else if (ui.item.sortable.droptarget[0].classList[0] == "dropzone") {
+                $scope.$apply($scope.dragging = false);
+
+                // Now move the file
+                var folderId = $(ui.item.sortable.droptarget[0]).data('folder');
+                var fileId = $(ui.item).data('file');
+
+                $scope.moveFile(folderId, fileId);
+            } else {
+                $scope.$apply($scope.dragging = false);
+            }
+        }
+    };
+
+    $scope.dropzone = {};
 });
 
 fileManagerApp.controller('settingsController', function($scope){
@@ -209,3 +251,5 @@ fileManagerApp.directive("fmLoading", function($http) {
         }
     }
 });
+
+//angular.bootstrap(document, ['fileManagerApp']);
