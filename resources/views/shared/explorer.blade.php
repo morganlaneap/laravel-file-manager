@@ -41,7 +41,7 @@
                         {{-- This section is the files. They can be dragged to folders. --}}
                         <tbody ui-sortable="draggable" ng-model="files">
                             <tr ng-repeat="file in files | orderBy:myOrderBy" data-file="@{{ file.id }}">
-                                <td class="hidden">@{{ file.id }}</td>
+                                {{--<td class="hidden">@{{ file.id }}</td>--}}
                                 <td><i class="fa fa-file-text-o fa-2x" style="vertical-align: -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ file.file_name }}</td>
                                 <td>@{{ file.file_extension }}</td>
                                 <td>@{{ file.file_size/1024/1024|number:2 }} MB</td>

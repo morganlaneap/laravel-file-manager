@@ -203,11 +203,15 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
 
     $scope.draggable = {
         connectWith: ".dropzone",
+        start: function (e, ui) {
+            $(ui.item).addClass('dragging-row');
+        },
         update: function (e, ui) {
             if (ui.item.sortable.droptarget[0].classList[0] !== "dropzone")
                 ui.item.sortable.cancel();
         },
         stop: function (e, ui) {
+            $(ui.item).removeClass('dragging-row');
             if (ui.item.sortable.droptarget[0].classList[0] == "dropzone") {
                 $scope.$apply($scope.dragging = false);
 

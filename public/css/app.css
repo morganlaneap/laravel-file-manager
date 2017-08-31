@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .clickable-row {
     cursor: pointer;
 }
@@ -11,4 +15,28 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+/* Dragging row style */
+.dragging-row {
+    background-color: transparent;
+    cursor: move !important;
+}
+
+.dragging-row > td:not(:first-child) {
+    display: none;
+}
+
+.dragging-row > td:first-child {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.dragging-row:hover {
+    background-color: transparent !important;
+}
+
+.ui-sortable-placeholder {
+    display: none;
 }
