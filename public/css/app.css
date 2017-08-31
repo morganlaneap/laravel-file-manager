@@ -44,3 +44,7 @@ body {
 #toast-container {
     margin-top: 60px;
 }
+
+.bc-link {
+    cursor: pointer;
+}

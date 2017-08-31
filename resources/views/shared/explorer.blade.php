@@ -5,8 +5,8 @@
             <span class="hidden" ng-bind="folder" id="current-folder"></span>
             <div class="col-md-12">
                 <ol class="breadcrumb">
-                    <li>My Files</li>
-                    <li ng-repeat="f in folderBreadcrumb">@{{ f.folder_name }}</li>
+                    <li ng-click="folder=0; getFiles();"><a class="bc-link">My Files</a></li>
+                    <li ng-repeat="f in folderBreadcrumb" ng-click="$parent.folder=f.id; getFiles();"><a class="bc-link">@{{ f.folder_name }}</a></li>
                 </ol>
 
                 <div fm-loading="explorer" class="text-center">
