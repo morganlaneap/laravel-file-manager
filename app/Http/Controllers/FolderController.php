@@ -65,8 +65,7 @@ class FolderController extends Controller
             $id = 0;
         }
 
-        // Set the root info
-        $rootFolder = collect(['id' => '0', 'folder_name' => 'My Files']);
+        $rootFolder = Folder::where('id', 0)->get();
 
         if ($id != 0) {
             // Get the current folder
@@ -90,7 +89,7 @@ class FolderController extends Controller
                 }
             }
 
-            //$folders = $folders->merge($rootFolder);
+            $folders = $folders->merge($rootFolder);
         } else {
             $folders = $rootFolder;
         }

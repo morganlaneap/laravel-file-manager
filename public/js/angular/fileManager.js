@@ -102,8 +102,6 @@ var explorerController = function ($scope, $http, $rootScope) {
             url: explorer_get_folder_bc_url,
             data: data
         }).then(function(response) {
-            console.log($scope.folder);
-
             $scope.folderBreadcrumb = response.data;
         });
 
