@@ -27,6 +27,7 @@
         var explorer_rename_file_url = '{{route('explorer.file.rename')}}';
         var explorer_rename_folder_url = '{{route('explorer.folder.rename')}}';
         var explorer_move_file_url = '{{route('explorer.file.move')}}';
+        var explorer_get_folder_name_url = '{{route('explorer.folder.getName')}}';
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

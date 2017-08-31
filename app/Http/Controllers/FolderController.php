@@ -54,4 +54,16 @@ class FolderController extends Controller
 
         return response()->json(['msg' => 'Folder renamed.', 'status' => '200'], 200);
     }
+
+    public function getFolderName(Request $request) {
+        $id = $request->input('id');
+
+        if ($id == 0) {
+            return response()->json(['folder_name' => 'Root']);
+        }
+
+        $folder = Folder::where('id', $id)->select('folder_name')->firstOrFail();
+
+        return $folder->toJson();
+    }
 }

@@ -73,6 +73,8 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
         }).then(function(response) {
             $scope.folders = response.data;
         });
+
+        $scope.getFolderName(folder);
     };
 
     $scope.getParentFolderId = function() {
@@ -177,6 +179,21 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
         $event.stopPropagation();
 
         $('#rename-folder-modal').modal('toggle');
+    };
+
+    $scope.getFolderName = function(folderId) {
+        var data = {
+            id: folderId,
+            '_token' : $('meta[name=csrf-token]').attr("content")
+        };
+
+        $http({
+            method: 'POST',
+            url: explorer_get_folder_name_url,
+            data: data
+        }).then(function(response) {
+            $scope.currentFolder = response.data["folder_name"];
+        });
     };
 
 

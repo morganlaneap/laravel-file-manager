@@ -5,6 +5,8 @@
             <span class="hidden" ng-bind="folder" id="current-folder"></span>
             <div class="col-md-12">
 
+                <span><b>Current Folder: </b><span ng-bind="currentFolder">/</span></span>
+
                 <div fm-loading="explorer" class="text-center">
                     <i class="fa fa-spin fa-refresh fa-3x"></i>
                 </div>

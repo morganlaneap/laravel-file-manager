@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/explorer/files/rename', ['uses' => 'FileController@renameFile'])->name('explorer.file.rename');
     Route::post('/explorer/folders/rename', ['uses' => 'FolderController@renameFolder'])->name('explorer.folder.rename');
     Route::post('/explorer/files/move', ['uses' => 'FileController@moveFile'])->name('explorer.file.move');
+    Route::post('/explorer/folders/get-name', ['uses' => 'FolderController@getFolderName'])->name('explorer.folder.getName');
 
     // Profile routes
     Route::get('/profile', ['uses' => 'UserController@index'])->name('profile');
