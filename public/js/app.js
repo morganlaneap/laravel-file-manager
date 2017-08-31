@@ -14,3 +14,6 @@ function notify(message, type) {
             break;
     }
 }
+
+// Toastr options
+toastr.options.progressBar = true;

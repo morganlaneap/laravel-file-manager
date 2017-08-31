@@ -40,3 +40,7 @@ body {
 .ui-sortable-placeholder {
     display: none;
 }
+
+#toast-container {
+    margin-top: 60px;
+}
