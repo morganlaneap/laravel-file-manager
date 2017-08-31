@@ -5,6 +5,7 @@
             <span class="hidden" ng-bind="folder" id="current-folder"></span>
             <div class="col-md-12">
                 <ol class="breadcrumb">
+                    <li>My Files</li>
                     <li ng-repeat="f in folderBreadcrumb">@{{ f.folder_name }}</li>
                 </ol>
 

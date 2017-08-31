@@ -105,6 +105,8 @@ var explorerController = function ($scope, $http, $rootScope) {
             $scope.folderBreadcrumb = response.data;
         });
 
+        console.log($scope.folder);
+
         //$scope.getFolderBreadcrumb();
     };
 
@@ -121,6 +123,7 @@ var explorerController = function ($scope, $http, $rootScope) {
             data: data
         }).then(function(response) {
             $scope.folder = response.data["parent_folder"];
+            console.log(response.data["parent_folder"]);
             $scope.getFiles();
         });
 

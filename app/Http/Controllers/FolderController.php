@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Folder;
 use Auth;
 use DB;
+use Carbon\Carbon;
 
 class FolderController extends Controller
 {
@@ -57,15 +58,10 @@ class FolderController extends Controller
         return response()->json(['msg' => 'Folder renamed.', 'status' => '200'], 200);
     }
 
-    public function getFolderBreadcrumb(Request $request) {
+    public function getFolderBreadcrumb(Request $request)
+    {
         // This probably could be better.
         $id = $request->input('folder');
-
-        if ($id == null) {
-            $id = 0;
-        }
-
-        $rootFolder = Folder::where('id', 0)->get();
 
         if ($id != 0) {
             // Get the current folder
@@ -89,11 +85,9 @@ class FolderController extends Controller
                 }
             }
 
-            $folders = $folders->merge($rootFolder);
-        } else {
-            $folders = $rootFolder;
+            return $folders->toJson();
         }
 
-        return $folders->toJson();
+        return null;
     }
 }
