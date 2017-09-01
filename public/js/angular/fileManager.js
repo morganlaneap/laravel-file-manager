@@ -268,6 +268,25 @@ fileManagerApp.controller('settingsController', function($scope){
     };
 });
 
+fileManagerApp.controller('userManagementController', function($scope, $http){
+    $scope.userSearch = '';
+
+    $scope.getUsers = function() {
+        var data = {
+            searchString: $scope.userSearch,
+            '_token' : $('meta[name=csrf-token]').attr("content")
+        };
+
+        $http({
+            method: 'POST',
+            url: admin_users_get_url,
+            data: data
+        }).then(function(response) {
+            $scope.userResults = response.data;
+        });
+    };
+});
+
 // Directives //
 fileManagerApp.directive("fmLoading", function($http) {
     return {

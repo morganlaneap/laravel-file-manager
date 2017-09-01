@@ -3,9 +3,9 @@
     @section('content')
         <div ng-controller="settingsController">
             <div>
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-10 col-md-offset-1">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -30,9 +30,9 @@
             </div>
 
             <div>
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-10 col-md-offset-1">
 
                             <form method="post" action="{{route('admin.settings.save')}}">
                                 {{csrf_field()}}

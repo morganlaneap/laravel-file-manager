@@ -61,7 +61,7 @@
 
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a><i class="fa fa-users"></i>&nbsp;&nbsp;Manage Users</a></li>
+                                <li><a href="{{ route('admin.users') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Manage Users</a></li>
                                 <li><a href="{{route('admin.settings')}}"><i class="fa fa-cogs"></i>&nbsp;&nbsp;System Settings</a></li>
                             </ul>
                         </li>
@@ -107,7 +107,7 @@
     @yield('content')
     </div>
 
-    <div>
+    <div style="margin-top: 25px;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">

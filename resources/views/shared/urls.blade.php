@@ -12,5 +12,10 @@
     var explorer_get_folder_bc_url = '{{route('explorer.folder.getBreadcrumb')}}';
     var explorer_get_quota_url = '{{route('user.getQuota')}}';
 
+    @if(Auth::user()->user_type == 'admin')
+        var admin_users_get_url = '{{route('admin.users.get')}}';
+    @endif
+
+
     var user_id = '{{Auth::user()->id}}';
 </script>
