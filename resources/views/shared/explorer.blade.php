@@ -69,13 +69,13 @@
                             <div class="col-md-2 text-center">
                                 <h5>Your Quota</h5>
                                 {{--<span>@{{ userQuota }} MB</span>--}}
-                                <div class="c100 user-quota-circle p0">
+                                <a class="plain-link" href="#"><div class="c100 user-quota-circle p0">
                                     <span>@{{ userUsagePercentage }}%</span>
                                     <div class="slice">
                                         <div class="bar"></div>
                                         <div class="fill"></div>
                                     </div>
-                                </div>
+                                </div></a>
                                 <span>used</span>
                             </div>
                         </div>

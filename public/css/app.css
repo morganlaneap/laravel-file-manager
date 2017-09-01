@@ -57,3 +57,8 @@ body {
 .fm-breadcrumb {
     text-overflow: ellipsis;
 }
+
+.plain-link {
+    color: #666666;
+    cursor: pointer !important;
+}
