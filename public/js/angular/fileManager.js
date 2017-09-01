@@ -42,6 +42,7 @@ fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$r
 fileManagerApp.controller('explorerController', function ($scope, $http, $rootScope) {
     $scope.folder = 0;
     $scope.userId = user_id;
+    $scope.userUsagePercentage = 0;
 
     $rootScope.$on('getFiles', function() {
         $scope.getFiles();

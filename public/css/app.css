@@ -48,3 +48,12 @@ body {
 .bc-link {
     cursor: pointer;
 }
+
+.user-quota-circle {
+    margin: 10px auto 10px auto;
+    float: none;
+}
+
+.fm-breadcrumb {
+    text-overflow: ellipsis;
+}

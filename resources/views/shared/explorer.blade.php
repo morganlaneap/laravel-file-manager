@@ -1,17 +1,13 @@
 <div  ng-controller="explorerController">
 <div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <span class="hidden" ng-bind="folder" id="current-folder"></span>
-            <div class="col-md-12">
-
-
-
-
-
+            <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div>
+                    <div class="fm-breadcrumb">
                         <ol class="breadcrumb" style="margin-bottom: 0">
+                            Folder:
                             <li ng-click="folder=0; getFiles();"><a class="bc-link">My Files</a></li>
                             <li ng-repeat="f in folderBreadcrumb" ng-click="$parent.folder=f.id; getFiles();"><a class="bc-link">@{{ f.folder_name }}</a></li>
                         </ol>
@@ -19,73 +15,71 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-10">
+                                <div fm-loading="explorer" class="text-center" style="margin-top: 10px;">
+                                    <i class="fa fa-spin fa-refresh fa-3x"></i>
+                                </div>
 
+                                <div id="explorer">
+                                    <span ng-show="folders.length+files.length==0 && folder==0">No files found.</span>
+                                    <table class="table table-hover table-responsive" ng-show="folder==0 ? folders.length + files.length>0 : true">
+                                        <thead>
+                                        <th class="sortable" ng-click="orderByMe('file_name')"><i class="fa fa-sort"></i>&nbsp;&nbsp;Name</th>
+                                        <th>Type</th>
+                                        <th class="sortable" ng-click="orderByMe('file_size')"><i class="fa fa-sort"></i>&nbsp;&nbsp;Size</th>
+                                        <th class="sortable" ng-click="orderByMe('updated_at')"><i class="fa fa-sort"></i>&nbsp;&nbsp;Date Modified</th>
+                                        <th>Actions</th>
+                                        </thead>
+                                        <tr class="clickable-row" ng-hide="folder==0" ng-click="getParentFolderId()">
+                                            <td>
+                                                <i class="fa fa-level-up fa-2x"></i>&nbsp;&nbsp;..
+                                            </td>
+                                            <td></td><td></td><td></td><td></td>
+                                        </tr>
+                                        {{-- This row is for the folders, they act as a dropzone for files. --}}
+                                        <tbody>
+                                        <tr class="dropzone clickable-row" data-folder="@{{ f.id }}" ng-repeat="f in folders | orderBy:myOrderBy" ng-click="$parent.folder=f.id; getFiles()" ui-sortable="dropzone" ng-model="dropzoneFiles">
+                                            <td><i class="fa fa-folder fa-2x" style="vertical-align:  -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ f.folder_name }}</td>
+                                            <td>Folder</td>
+                                            <td></td>
+                                            <td>@{{ f.updated_at }}</td>
+                                            <td>
+                                                <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
+                                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rename-folder-modal" ng-click="$parent.folderName=f.folder_name; $parent.folderId=f.id; showFolderRenameModal($event);"><i class="fa fa-pencil"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        {{-- This section is the files. They can be dragged to folders. --}}
+                                        <tbody ui-sortable="draggable" ng-model="files">
+                                        <tr ng-repeat="file in files | orderBy:myOrderBy" data-file="@{{ file.id }}">
+                                            {{--<td class="hidden">@{{ file.id }}</td>--}}
+                                            <td><i class="fa fa-file-text-o fa-2x" style="vertical-align: -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ file.file_name }}</td>
+                                            <td>@{{ file.file_extension }}</td>
+                                            <td>@{{ file.file_size/1024/1024|number:2 }} MB</td>
+                                            <td>@{{ file.updated_at }}</td>
+                                            <td>
+                                                <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
+                                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rename-file-modal" ng-click="$parent.fileName=file.file_name; $parent.fileId=file.id;"><i class="fa fa-pencil"></i></a>
+                                                <a class="btn btn-danger btn-sm" ng-click="deleteFile(file.id)"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="col-md-2 text-center">
-                                <div class="c100 user-quota-circle pull-right">
+                                <h5>Your Quota</h5>
+                                {{--<span>@{{ userQuota }} MB</span>--}}
+                                <div class="c100 user-quota-circle p0">
                                     <span>@{{ userUsagePercentage }}%</span>
                                     <div class="slice">
                                         <div class="bar"></div>
                                         <div class="fill"></div>
                                     </div>
                                 </div>
-
-                                <span>@{{ userQuota }} MB</span>
+                                <span>used</span>
                             </div>
                         </div>
                     </div>
-                </div>
-
-
-                <div fm-loading="explorer" class="text-center">
-                    <i class="fa fa-spin fa-refresh fa-3x"></i>
-                </div>
-
-                <div id="explorer">
-                    <span ng-show="folders.length+files.length==0 && folder==0">No files found.</span>
-                    <table class="table table-hover table-responsive" ng-show="folder==0 ? folders.length + files.length>0 : true">
-                        <thead>
-                            <th class="sortable" ng-click="orderByMe('file_name')"><i class="fa fa-sort"></i>&nbsp;&nbsp;Name</th>
-                            <th>Type</th>
-                            <th class="sortable" ng-click="orderByMe('file_size')"><i class="fa fa-sort"></i>&nbsp;&nbsp;Size</th>
-                            <th class="sortable" ng-click="orderByMe('updated_at')"><i class="fa fa-sort"></i>&nbsp;&nbsp;Date Modified</th>
-                            <th>Actions</th>
-                        </thead>
-                        <tr class="clickable-row" ng-hide="folder==0" ng-click="getParentFolderId()">
-                            <td>
-                                <i class="fa fa-level-up fa-2x"></i>&nbsp;&nbsp;..
-                            </td>
-                            <td></td><td></td><td></td><td></td>
-                        </tr>
-                        {{-- This row is for the folders, they act as a dropzone for files. --}}
-                        <tbody>
-                            <tr class="dropzone clickable-row" data-folder="@{{ f.id }}" ng-repeat="f in folders | orderBy:myOrderBy" ng-click="$parent.folder=f.id; getFiles()" ui-sortable="dropzone" ng-model="dropzoneFiles">
-                                <td><i class="fa fa-folder fa-2x" style="vertical-align:  -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ f.folder_name }}</td>
-                                <td>Folder</td>
-                                <td></td>
-                                <td>@{{ f.updated_at }}</td>
-                                <td>
-                                    <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
-                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rename-folder-modal" ng-click="$parent.folderName=f.folder_name; $parent.folderId=f.id; showFolderRenameModal($event);"><i class="fa fa-pencil"></i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                        {{-- This section is the files. They can be dragged to folders. --}}
-                        <tbody ui-sortable="draggable" ng-model="files">
-                            <tr ng-repeat="file in files | orderBy:myOrderBy" data-file="@{{ file.id }}">
-                                {{--<td class="hidden">@{{ file.id }}</td>--}}
-                                <td><i class="fa fa-file-text-o fa-2x" style="vertical-align: -20%;"></i>&nbsp;&nbsp;&nbsp;&nbsp;@{{ file.file_name }}</td>
-                                <td>@{{ file.file_extension }}</td>
-                                <td>@{{ file.file_size/1024/1024|number:2 }} MB</td>
-                                <td>@{{ file.updated_at }}</td>
-                                <td>
-                                    <a class="btn btn-default btn-sm" href="{{route('explorer.download')}}/@{{ file.id }}"><i class="fa fa-download"></i></a>
-                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rename-file-modal" ng-click="$parent.fileName=file.file_name; $parent.fileId=file.id;"><i class="fa fa-pencil"></i></a>
-                                    <a class="btn btn-danger btn-sm" ng-click="deleteFile(file.id)"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

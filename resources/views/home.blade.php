@@ -6,9 +6,9 @@
     @include('shared.upload')
 
     <div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10 col-md-offset-1">
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -26,9 +26,9 @@
     </div>
 
     <div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10 col-md-offset-1">
                     <a class="btn btn-default text-capitalize" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-upload"></i>&nbsp;&nbsp;Upload Files</a>
                     <a class="btn btn-default text-capitalize" data-toggle="modal" data-target="#folder-create-modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Folder</a>
                 </div>
