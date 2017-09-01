@@ -10,4 +10,7 @@
     var explorer_rename_folder_url = '{{route('explorer.folder.rename')}}';
     var explorer_move_file_url = '{{route('explorer.file.move')}}';
     var explorer_get_folder_bc_url = '{{route('explorer.folder.getBreadcrumb')}}';
+    var explorer_get_quota_url = '{{route('user.getQuota')}}';
+
+    var user_id = '{{Auth::user()->id}}';
 </script>

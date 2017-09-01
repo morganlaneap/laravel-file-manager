@@ -34,6 +34,9 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/profile', ['uses' => 'UserController@index'])->name('profile');
     Route::post('/profile/update', ['uses' => 'UserController@updateProfile'])->name('profile.update');
 
+    // User routes
+    Route::any('/user/get-quota', ['uses' => 'UserController@getUserDiskQuota'])->name('user.getQuota');
+
     Route::prefix('admin')->middleware(['adminCheck'])->group(function() {
        Route::get('settings', ['uses' => 'Admin\SettingsController@index'])->name('admin.settings');
        Route::post('settings/save', ['uses' => 'Admin\SettingsController@saveSettings'])->name('admin.settings.save');

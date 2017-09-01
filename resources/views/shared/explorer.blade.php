@@ -1,13 +1,41 @@
-<div  ng-controller="explorerController" ng-init="folder=0; getFiles()">
+<div  ng-controller="explorerController">
 <div>
     <div class="container">
         <div class="row">
             <span class="hidden" ng-bind="folder" id="current-folder"></span>
             <div class="col-md-12">
-                <ol class="breadcrumb">
-                    <li ng-click="folder=0; getFiles();"><a class="bc-link">My Files</a></li>
-                    <li ng-repeat="f in folderBreadcrumb" ng-click="$parent.folder=f.id; getFiles();"><a class="bc-link">@{{ f.folder_name }}</a></li>
-                </ol>
+
+
+
+
+
+                <div class="panel panel-default">
+                    <div>
+                        <ol class="breadcrumb" style="margin-bottom: 0">
+                            <li ng-click="folder=0; getFiles();"><a class="bc-link">My Files</a></li>
+                            <li ng-repeat="f in folderBreadcrumb" ng-click="$parent.folder=f.id; getFiles();"><a class="bc-link">@{{ f.folder_name }}</a></li>
+                        </ol>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-10">
+
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <div class="c100 user-quota-circle pull-right">
+                                    <span>@{{ userUsagePercentage }}%</span>
+                                    <div class="slice">
+                                        <div class="bar"></div>
+                                        <div class="fill"></div>
+                                    </div>
+                                </div>
+
+                                <span>@{{ userQuota }} MB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div fm-loading="explorer" class="text-center">
                     <i class="fa fa-spin fa-refresh fa-3x"></i>

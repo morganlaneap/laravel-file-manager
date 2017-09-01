@@ -40,6 +40,9 @@ fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$r
 }]);
 
 fileManagerApp.controller('explorerController', function ($scope, $http, $rootScope) {
+    $scope.folder = 0;
+    $scope.userId = user_id;
+
     $rootScope.$on('getFiles', function() {
         $scope.getFiles();
     });
@@ -233,6 +236,29 @@ fileManagerApp.controller('explorerController', function ($scope, $http, $rootSc
     };
 
     $scope.dropzone = {};
+
+    $scope.getQuota = function() {
+        var data = {
+            userId: $scope.userId,
+            '_token' : $('meta[name=csrf-token]').attr("content")
+        };
+
+        $http({
+            method: 'POST',
+            url: explorer_get_quota_url,
+            data: data
+        }).then(function(response) {
+            $scope.userQuota = response.data[0]["disk_quota"];
+            $scope.userUsage = response.data[0]["disk_usage"];
+
+            $scope.userUsagePercentage = (($scope.userUsage / $scope.userQuota) * 100).toFixed(1);
+
+            $('.user-quota-circle').attr('class', 'c100 user-quota-circle p' + Math.round($scope.userUsagePercentage));
+        });
+    };
+
+    $scope.getFiles();
+    $scope.getQuota();
 });
 
 fileManagerApp.controller('settingsController', function($scope){
