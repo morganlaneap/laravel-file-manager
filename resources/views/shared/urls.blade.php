@@ -14,6 +14,7 @@
 
     @if(Auth::user()->user_type == 'admin')
         var admin_users_get_url = '{{route('admin.users.get')}}';
+        var admin_users_save_url = '{{route('admin.users.save')}}';
     @endif
 
 

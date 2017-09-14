@@ -44,5 +44,6 @@ Route::middleware(['auth'])->group(function() {
        Route::get('users', ['uses' => 'Admin\UserController@index'])->name('admin.users');
        Route::post('users/get', ['uses' => 'Admin\UserController@getUsers'])->name('admin.users.get');
        Route::get('users/view/{id?}', ['uses' => 'Admin\UserController@getUserInfo'])->name('admin.users.view');
+       Route::post('users/save', ['uses' => 'Admin\UserController@saveUserInfo'])->name('admin.users.save');
     });
 });

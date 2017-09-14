@@ -285,6 +285,22 @@ fileManagerApp.controller('userManagementController', function($scope, $http){
             $scope.userResults = response.data;
         });
     };
+
+    $scope.saveUserDetails = function() {
+        var data = {
+            userId: $scope.userId,
+            userQuota: $scope.userQuota,
+            '_token' : $('meta[name=csrf-token]').attr("content")
+        };
+
+        $http({
+            method: 'POST',
+            url: admin_users_save_url,
+            data: data
+        }).then(function(response) {
+            notify("User saved.", 1);
+        });
+    };
 });
 
 // Directives //
