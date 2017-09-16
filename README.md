@@ -11,6 +11,7 @@ permissions and a quote/size tracker so you can limit how much people can upload
 - Ability to rename existing files and folders.
 - Ability to sort by Name, Size or Date Modified.
 - Basic admin section for modifying settings (and users soon).
+- Simple quota system
 
 ### Updates
 I'm working on this in my spare time, so it'll be updated as and when. Feel free to contribute and add things you think would make it awesome.
@@ -30,9 +31,9 @@ I have a lot of features planned for the future.
 ### FAQ
 **Q1) Can I use this for cloud file hosting?**
 
-A1) Yes. When LaravelFileManager is a little more advanced, it will be suitable 
+A1) Yes. When LaravelFileManager is a little more advanced, it will be suitable
  for running cloud file hosting.
- 
+
 **Q2) Where are files stored?**
 
 A2) By default, files are stored in `/storage/app/uploads`, but I plan an ability to change this.
