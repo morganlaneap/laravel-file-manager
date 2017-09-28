@@ -7,6 +7,8 @@ use App\File;
 use App\Folder;
 use Auth;
 use Illuminate\Support\Facades\Storage;
+use User;
+use App\Helpers\QuotaHelper;
 
 class FileController extends Controller
 {
@@ -22,6 +24,18 @@ class FileController extends Controller
             $size = $request->file('file')->getClientSize();
             $fileName = $request->file('file')->getClientOriginalName();
             $fileExt = $request->file('file')->getClientOriginalExtension();
+
+            // first check that the user has got some quota space
+            $userQuota = QuotaHelper::getUserQuotaUsed(Auth::id());
+
+            $userQuota = json_decode($userQuota);
+
+            $diskQuota = $userQuota->{'disk_quota'};
+            $diskUsed  = $userQuota->{'disk_usage'};
+
+            if (($size / 1024 / 1024) + $diskUsed > $diskQuota) {
+              return response()->json(['msg' => 'You do not have enough of you quota left to upload this file.', 'status' => '500'], 500);
+            }
 
             $file = new File();
             $file->user_id = Auth::id();

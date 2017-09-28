@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use App\Helpers\QuotaHelper;
 
 class UserController extends Controller
 {
@@ -24,15 +25,8 @@ class UserController extends Controller
     public function getUserDiskQuota(Request $request) {
         $id = $request->input('userId');
 
-        $user = User::find($id);
-
-        $userQuota = $user->join('files', 'files.user_id' ,'=', 'users.id')
-                            ->groupBy('disk_quota')
-                            ->selectRaw('(sum(files.file_size) / 1024 / 1024) disk_usage, disk_quota')
-                            ->get();
+        $userQuota = QuotaHelper::getUserQuotaUsed($id);
 
         return $userQuota->toJson();
     }
-
-
 }
