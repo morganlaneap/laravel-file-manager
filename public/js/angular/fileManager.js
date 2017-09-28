@@ -31,7 +31,8 @@ fileManagerApp.controller('uploadFileController', ['$scope', 'FileUploader', '$r
     $scope.getFiles();
   };
   uploader.onErrorItem = function(fileItem, response, status, headers) {
-    notify('Failed to upload file: ' + status, 3);
+    var msg = response["msg"];
+    notify(msg, 3);
   };
 
   $scope.getFiles = function() {
@@ -80,6 +81,8 @@ fileManagerApp.controller('explorerController', function($scope, $http, $rootSco
     }).then(function(response) {
       $scope.folderBreadcrumb = response.data;
     });
+
+    $scope.getQuota();
 
     //$scope.getFolderBreadcrumb();
   };
@@ -248,8 +251,10 @@ fileManagerApp.controller('explorerController', function($scope, $http, $rootSco
       url: explorer_get_quota_url,
       data: data
     }).then(function(response) {
-      $scope.userQuota = response.data[0]["disk_quota"];
-      $scope.userUsage = response.data[0]["disk_usage"];
+      $scope.userQuota = response.data["disk_quota"];
+      $scope.userUsage = response.data["disk_usage"];
+
+      console.log(response);
 
       $scope.userUsagePercentage = (($scope.userUsage / $scope.userQuota) * 100).toFixed(1);
 
